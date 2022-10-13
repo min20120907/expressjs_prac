@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 
 // import the html file
 app.get('/upload', function(req, res){
-	res.sendfile(__dirname+"upload.html")
+	res.sendFile(__dirname+"/upload.html")
 })
 
 // upload messages
