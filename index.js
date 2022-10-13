@@ -11,8 +11,13 @@ app.get('/', (req, res) => {
   res.send('Hello World!<br>This is the home page of the website')
 })
 
+// import the html file
+app.get('/upload', function(req, res){
+	res.sendfile(__dirname+"upload.html")
+})
+
 // upload messages
-app.post('/upload', upload.single('uploaded_file'), function (req, res) {
+app.post('/upload-file', upload.single('uploaded_file'), function (req, res) {
 	upload(req, res, function(err) {
 		if(err){
 			return res.end("Error uploading file.")
