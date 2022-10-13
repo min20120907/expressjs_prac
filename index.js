@@ -6,7 +6,7 @@ const app = express()
 const port = 3000
 
 
-
+// home page message
 app.get('/', (req, res) => {
 	res.send('Hello World!<br>This is the home page of the website')
 })
@@ -17,7 +17,7 @@ app.get('/upload', function(req, res){
 })
 
 // upload messages
-app.post('/upload-file', upload.array('files',12), function (req, res) {
+app.post('/upload-file', upload.array('files'), function (req, res) {
 	res.end("The file is uploaded successfully!")
 })
 
