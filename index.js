@@ -5,13 +5,11 @@ const fs = require('fs')
 const storage = multer.diskStorage({ 
 	destination: function (req, file, cb) {
 		const dest = `src/imgs/${req.body.name}`
-		fs.access(dest, function (err) {
-			if (err) {
-				return fs.mkdir(dest, (error) => cb(error, dest));
-			} else {
-				return cb(null, dest);
-			}
-		});
+		if (fs.existsSync(dest)) {
+			cb(null, dest);
+		} else {
+			fs.mkdir(dest, (error) => cb(error, dest));
+		}
 	},
 	filename: function (req, file, cb) {
 		cb(null, file.originalname)
