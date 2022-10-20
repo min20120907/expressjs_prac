@@ -8,13 +8,13 @@ const storage = multer.diskStorage({
 		if (fs.existsSync(dest)) {
 			cb(null, dest);
 		} else {
-			fs.mkdir(dest, (error) => cb(error, dest));
+			fs.mkdir(dest, (error) => cb(error, dest))
 		}
 	},
 	filename: function (req, file, cb) {
 		cb(null, file.originalname)
 	}
-});
+})
 
 const upload = multer({
 	storage: storage
