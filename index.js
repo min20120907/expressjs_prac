@@ -45,5 +45,8 @@ app.listen(port, () => {
 
 // preview page
 app.get('/preview', function(req, res){
+	let albumName = req.query.aname
 	res.sendFile(__dirname+"/preview.html"))
 })
+
+
