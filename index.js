@@ -1,7 +1,8 @@
 const express = require('express')
 const multer = require('multer')
 const fs = require('fs')
-
+const cors = require('cors')
+const path = require('path')
 const storage = multer.diskStorage({ 
 	destination: function (req, file, cb) {
 		const dest = `src/imgs/${req.body.name}`
@@ -22,6 +23,15 @@ const upload = multer({
 
 const app = express()
 const port = 3000
+
+// cors settings
+const corsOptions = {
+	  origin: "*",
+	  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+	  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 
 // home page message
 app.get('/', (req, res) => {
@@ -46,12 +56,14 @@ app.listen(port, () => {
 // preview page
 app.get('/preview', function(req, res){
 	res.sendFile(__dirname+"/preview.html")
-	let albumName = req.query.aname
-	let pathName = __dirname+"/src/imgs/"
+	let albumName = req.query.aname+"/"
+	let pathName = "src/imgs/"
 	// find all the pictures in the album (aka. the folder)
 	fs.readdirSync(pathName+albumName).forEach(file => {
-		res.send(`<img src=${pathName+file}>`)
-		console.log(file)
+		let imgPath = path.join(pathName+albumName+file)
+		res.send(`<img src=${imgPath}>`)
+
+		console.log(pathName+albumName+file)
 	})
 })
 
