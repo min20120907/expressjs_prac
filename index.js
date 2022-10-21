@@ -6,7 +6,7 @@ const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 		const dest = `src/imgs/${req.body.name}`
 		if (fs.existsSync(dest)) {
-			cb(null, dest);
+			cb(null, dest)
 		} else {
 			fs.mkdir(dest, (error) => cb(error, dest))
 		}
