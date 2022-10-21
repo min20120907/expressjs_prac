@@ -47,10 +47,10 @@ app.listen(port, () => {
 app.get('/preview', function(req, res){
 	let albumName = req.query.aname
 	// find all the pictures in the album (aka. the folder)
-	fs.readdirSync(__dirname+albumName.forEach(file => {
+	fs.readdirSync(__dirname+"/src/imgs/"+albumName).forEach(file => {
 		let img = document.createElement("img")
 		img.src = __dirname+file
-	}))
+	})
 	res.sendFile(__dirname+"/preview.html")
 })
 
