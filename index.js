@@ -61,7 +61,7 @@ app.get('/preview', function(req, res){
 	// find all the pictures in the album (aka. the folder)
 	fs.readdirSync(pathName+albumName).forEach(file => {
 		let imgPath = path.join(pathName+albumName+file)
-		res.send(`<img src=${imgPath}>`)
+		res.send(`<img src=file://${__dirname+imgPath}>`)
 
 		console.log(pathName+albumName+file)
 	})
