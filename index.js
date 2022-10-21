@@ -50,7 +50,7 @@ app.get('/preview', function(req, res){
 	fs.readdirSync(__dirname+albumName.forEach(file => {
 		let img = document.createElement("img")
 		img.src = __dirname+file
-	})
+	}))
 	res.sendFile(__dirname+"/preview.html")
 })
 
