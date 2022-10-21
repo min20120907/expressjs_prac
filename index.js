@@ -58,10 +58,12 @@ app.get('/preview', function(req, res){
 	res.sendFile(__dirname+"/preview.html")
 	let albumName = req.query.aname+"/"
 	let pathName = "src/imgs/"
+	app.use(express.static(process.env.PWD + '/' + pathName + albumName))
 	// find all the pictures in the album (aka. the folder)
 	fs.readdirSync(pathName+albumName).forEach(file => {
 		let imgPath = path.join(pathName+albumName+file)
-		res.send(`<img src=file://${__dirname+imgPath}>`)
+		res.send(`<img src=/${file}>`)
+
 
 		console.log(pathName+albumName+file)
 	})
