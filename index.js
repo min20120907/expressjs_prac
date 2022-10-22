@@ -3,6 +3,39 @@ const multer = require('multer')
 const fs = require('fs')
 const cors = require('cors')
 const path = require('path')
+const mysql = require('mysql')
+
+const connection = mysql.createConnection({
+	host     : 'localhost',
+	user     : 'phpmyadmin',
+	password : 'jefflin123',
+	database : 'Photos',
+});
+
+function addDB(req, file) {
+		const FILE = file.originalname
+		const UPLOADER = req.body.name
+		//https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
+		const UPLOAD_TIME = new Date().toISOString().slice(0, 19).replace('T', ' ')
+		console.log(FILE, UPLOADER, UPLOAD_TIME)
+
+		connection.connect(function(err) {
+			if (err) {
+				console.error('error connecting db: ' + err.stack);
+				return;
+			}
+
+			console.log('connected to db as id ' + connection.threadId);
+
+			const sql = 'INSERT INTO Gallery (FILE, UPLOADER, UPLOAD_TIME) VALUES (?)'
+			const values = `[${FILE}, ${UPLOADER}, ${UPLOAD_TIME}]`
+			connection.query(sql, [values],
+				function (error, results, fields) {
+					if (error) throw error;
+			});
+		});
+}
+
 const storage = multer.diskStorage({ 
 	destination: function (req, file, cb) {
 		const dest = `src/imgs/${req.body.name}`
@@ -13,6 +46,7 @@ const storage = multer.diskStorage({
 		}
 	},
 	filename: function (req, file, cb) {
+		addDB(req, file)
 		cb(null, file.originalname)
 	}
 })
