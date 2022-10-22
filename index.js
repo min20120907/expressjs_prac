@@ -28,7 +28,7 @@ function addDB(req, file) {
 		console.log('connected to db as id ' + connection.threadId)
 
 		const sql = 'INSERT INTO Gallery (FILE, UPLOADER, UPLOAD_TIME) VALUES (?)'
-		const values = [`${FILE}`, `${UPLOADER}`, `${UPLOAD_TIME}`]
+		const values = [FILE, UPLOADER, UPLOAD_TIME]
 		connection.query(sql, [values],
 			function (error, results, fields) {
 				if (error) throw error
