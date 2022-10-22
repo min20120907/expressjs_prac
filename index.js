@@ -13,27 +13,27 @@ const connection = mysql.createConnection({
 })
 
 function addDB(req, file) {
-		const FILE = file.originalname
-		const UPLOADER = req.body.name
-		//https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
-		const UPLOAD_TIME = new Date().toISOString().slice(0, 19).replace('T', ' ')
-		console.log(FILE, UPLOADER, UPLOAD_TIME)
+	const FILE = file.originalname
+	const UPLOADER = req.body.name
+	//https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
+	const UPLOAD_TIME = new Date().toISOString().slice(0, 19).replace('T', ' ')
+	console.log(FILE, UPLOADER, UPLOAD_TIME)
 
-		connection.connect(function(err) {
-			if (err) {
-				console.error('error connecting db: ' + err.stack)
-				return
-			}
+	connection.connect(function(err) {
+		if (err) {
+			console.error('error connecting db: ' + err.stack)
+			return
+		}
 
-			console.log('connected to db as id ' + connection.threadId)
+		console.log('connected to db as id ' + connection.threadId)
 
-			const sql = 'INSERT INTO Gallery (FILE, UPLOADER, UPLOAD_TIME) VALUES (?)'
-			const values = `[${FILE}, ${UPLOADER}, ${UPLOAD_TIME}]`
-			connection.query(sql, [values],
-				function (error, results, fields) {
-					if (error) throw error
-			})
+		const sql = 'INSERT INTO Gallery (FILE, UPLOADER, UPLOAD_TIME) VALUES (?)'
+		const values = `[${FILE}, ${UPLOADER}, ${UPLOAD_TIME}]`
+		connection.query(sql, [values],
+			function (error, results, fields) {
+				if (error) throw error
 		})
+	})
 }
 
 const storage = multer.diskStorage({ 
@@ -62,7 +62,7 @@ const port = 3000
 const corsOptions = {
 	  origin: "*",
 	  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-	  allowedHeaders: ['Content-Type', 'Authorization'],
+	  allowedHeaders: ['Content-Type', 'Authorization']
 }
 
 app.use(cors(corsOptions))
@@ -98,9 +98,6 @@ app.get('/preview', function(req, res){
 		let imgPath = path.join(pathName+albumName+file)
 		res.send(`<img src=/${file}>`)
 
-
 		console.log(pathName+albumName+file)
 	})
 })
-
-
