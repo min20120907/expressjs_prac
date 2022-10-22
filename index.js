@@ -9,8 +9,8 @@ const connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'phpmyadmin',
 	password : 'jefflin123',
-	database : 'Photos',
-});
+	database : 'Photos'
+})
 
 function addDB(req, file) {
 		const FILE = file.originalname
@@ -21,19 +21,19 @@ function addDB(req, file) {
 
 		connection.connect(function(err) {
 			if (err) {
-				console.error('error connecting db: ' + err.stack);
-				return;
+				console.error('error connecting db: ' + err.stack)
+				return
 			}
 
-			console.log('connected to db as id ' + connection.threadId);
+			console.log('connected to db as id ' + connection.threadId)
 
 			const sql = 'INSERT INTO Gallery (FILE, UPLOADER, UPLOAD_TIME) VALUES (?)'
 			const values = `[${FILE}, ${UPLOADER}, ${UPLOAD_TIME}]`
 			connection.query(sql, [values],
 				function (error, results, fields) {
-					if (error) throw error;
-			});
-		});
+					if (error) throw error
+			})
+		})
 }
 
 const storage = multer.diskStorage({ 
@@ -63,9 +63,9 @@ const corsOptions = {
 	  origin: "*",
 	  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
 	  allowedHeaders: ['Content-Type', 'Authorization'],
-};
+}
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions))
 
 // home page message
 app.get('/', (req, res) => {
