@@ -1,8 +1,6 @@
 const express = require('express')
 const multer = require('multer')
 const fs = require('fs')
-const cors = require('cors')
-const path = require('path')
 const mysql = require('mysql')
 
 const connection = mysql.createConnection({
@@ -57,15 +55,6 @@ const upload = multer({
 
 const app = express()
 const port = 3000
-
-// cors settings
-const corsOptions = {
-	  origin: "*",
-	  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-	  allowedHeaders: ['Content-Type', 'Authorization']
-}
-
-app.use(cors(corsOptions))
 
 // home page message
 app.get('/', (req, res) => {
