@@ -75,9 +75,13 @@ app.post('/upload-file', upload.array('files'), function (req, res) {
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)
 })
-
 // preview page
 app.get('/preview', function(req, res){
+	res.sendFile(__dirname+"/preview.html")
+})
+
+// preview results page
+app.get('/preview-result', function(req, res){
 	res.sendFile(__dirname+"/preview.html")
 	let albumName = req.query.aname
 	let pathName = "src/imgs/"
