@@ -91,12 +91,26 @@ app.get('/preview-result', function(req, res){
 	return `<!DOCTYPE html>
 <html>
     <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 150px;
+    }
+
+    img:hover {
+        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    }
+    </style>
     </head>
     <body>
-        <img src="${text}">
+        <h1>Image preview</h1>
+${text}
     </body>
 </html>`
 	}
 
-	res.send(template(fs.readdirSync(pathName+albumName).join('">\n<img src="')))
+	res.send(template(fs.readdirSync(pathName+albumName).map(i => '        <a href="'+i+'"><img src="'+i+'" style="width:200px"></a>').join('\n')))
 })
