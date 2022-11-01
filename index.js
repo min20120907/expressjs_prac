@@ -58,7 +58,8 @@ const port = 3000
 
 // home page message
 app.get('/', (req, res) => {
-	res.send('Hello World!<br>This is the home page of the website')
+	res.sendFile(__dirname+"/home.html")
+	app.use(express.static(process.env.PWD))
 })
 
 // import the html file
