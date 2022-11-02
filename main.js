@@ -1,5 +1,4 @@
-var app = require('app'); // 控制應用程式生命週期的模組。
-var BrowserWindow = require('browser-window'); // 創造原生瀏覽器窗口的模組
+const { app, BrowserWindow } = require('electron');
 
 // 保持一個對於 window 物件的全域的引用，不然，當 JavaScript 被GC，
 // window 會被自動地關閉
