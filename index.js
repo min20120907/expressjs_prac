@@ -80,7 +80,10 @@ app.listen(port, () => {
 app.get('/preview', function(req, res){
 	res.sendFile(__dirname+"/preview.html")
 })
-
+// home page
+app.get('/home', function(req, res){
+	res.sendFile(__dirname+"/home.html")
+})
 // preview results page
 app.get('/preview-result', function(req, res){
 	res.sendFile(__dirname+"/preview.html")
