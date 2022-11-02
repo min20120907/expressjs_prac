@@ -21,7 +21,7 @@ app.on('ready', function() {
   mainWindow = new BrowserWindow({width: 800, height: 600});
 
   // 載入應用程式的 index.html
-  mainWindow.loadURL(`http://localhost:3000/home.html`);
+  mainWindow.loadURL(`http://localhost:3000/home`);
 
   // 打開開發者工具
   mainWindow.webContents.openDevTools();
@@ -32,5 +32,14 @@ app.on('ready', function() {
     // 通常會把多個 window 物件存放在一個數組裡面，
     // 但這次不是。
     mainWindow = null;
+  });
+});
+
+app.on('web-contents-created', (event, webContents) => {
+  webContents.on('select-bluetooth-device', (event, devices, callback) => {
+    // Prevent default behavior
+    event.preventDefault();
+    // Cancel the request
+    callback('');
   });
 });
