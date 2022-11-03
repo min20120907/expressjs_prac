@@ -55,6 +55,8 @@ const upload = multer({
 
 const app = express()
 const port = 3000
+// upload page css
+app.use('/css', express.static('src/css'))
 
 // home page message
 app.get('/', (req, res) => {
