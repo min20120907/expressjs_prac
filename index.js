@@ -60,8 +60,7 @@ app.use('/css', express.static('src/css'))
 
 // home page message
 app.get('/', (req, res) => {
-	res.sendFile(__dirname+"/home.html")
-	app.use(express.static(process.env.PWD))
+	res.send('Hello World!<br>This is the home page of the website')
 })
 
 // import the html file
@@ -71,7 +70,7 @@ app.get('/upload', function(req, res){
 
 // upload messages
 app.post('/upload-file', upload.array('files'), function (req, res) {
-	res.end("The file is uploaded successfully!")
+	res.send("The file is uploaded successfully! <a href=home>return to home</a>")
 })
 
 // server ontime message
@@ -114,6 +113,7 @@ app.get('/preview-result', function(req, res){
     <body>
         <h1>Image preview</h1>
 ${text}
+        <a href=home>return to home</a>
     </body>
 </html>`
 	}
