@@ -118,7 +118,7 @@ ${text}
 </html>`
 	}
 
-	res.send(template(fs.readdirSync(pathName+albumName).map(i => '        <a href="/preview-pic/'+i+'"><img src="'+i+'" style="width:200px"></a>').join('\n')))
+	res.send(template(fs.readdirSync(pathName+albumName).map(i => '        <a href="/preview-pic?aname='+albumName+"&&picName="+i+'"><img src="'+i+'" style="width:200px"></a>').join('\n')))
 })
 
 // preview page
@@ -127,11 +127,11 @@ app.get('/preview-pic', function(req, res) {
   const picName = req.query.picName;
 
   // Construct the path to the picture
-  const pathName = 'src/imgs/';
-  const filePath = pathName + picName;
-
+  let albumName = req.query.aname
+  let pathName = "src/imgs/"
+  app.use(express.static(process.env.PWD + '/' + pathName + albumName))
   // Check if the file exists
-  if (fs.existsSync(filePath)) {
+  if (fs.existsSync(process.env.PWD)) {
     // If the file exists, create an HTML template for the preview page
     const template = `
     <!DOCTYPE html>
@@ -152,9 +152,9 @@ app.get('/preview-pic', function(req, res) {
         </head>
         <body>
             <h1>Image preview</h1>
-            <img src="${filePath}" style="width:100%">
+            <img src="${picName}" style="width:100%" />
             <br>
-            <button onclick="location.href='home'">Close</button>
+            <a href="/preview-result?aname=${albumName}">Close</button>
         </body>
     </html>`;
 
