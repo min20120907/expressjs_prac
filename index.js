@@ -118,5 +118,5 @@ ${text}
 </html>`
 	}
 
-	res.send(template(fs.readdirSync(pathName+albumName).map(i => '        <a href="'+i+'"><img src="'+i+'" style="width:200px"></a>').join('"<a href=home>return to home</a>"\n')))
+	res.send(template(fs.readdirSync(pathName+albumName).map(i => '        <a href="'+i+'"><img src="'+i+'" style="width:200px"></a>').join('\n')))
 })
